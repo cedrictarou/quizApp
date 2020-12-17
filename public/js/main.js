@@ -1,5 +1,5 @@
 (() => {
-  const QUIZ_URL = '/?format=json';
+  const QUIZ_URL = '/quiz';
   const quizNumElement = document.getElementById('questionNum');
   const questionElement = document.getElementById('question');
   const btnElement = document.getElementById('btn');
@@ -50,8 +50,12 @@
 
     choices.forEach((choice) => {
       const liElement = document.createElement('li');
-      liElement.innerHTML = `<button class="btn">${choice}</button>`;
+      const btnElement = document.createElement('button');
+
       choicesContainer.appendChild(liElement);
+      liElement.appendChild(btnElement);
+      btnElement.classList.add('btn');
+      btnElement.textContent = `${choice}`;
       liElement.addEventListener('click', (event) => {
         //正誤判定の処理
         if (event.target.textContent === unescapeHTML(correctAnser)) {
