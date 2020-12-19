@@ -13,4 +13,9 @@ app.use('/public', express.static(__dirname + '/public'));
 //ホームへのルーティング
 app.use('/', indexRouter);
 
+// エラーハンドリング
+app.use((err, req, res, next) => {
+  res.status(500).send('Something broke!');
+});
+
 app.listen(3000);

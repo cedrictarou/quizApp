@@ -7,11 +7,12 @@ module.exports = {
   doFetchQuizData: async (req, res, next) => {
     try {
       //Modelsからデータを取ってくる
-      const result = await Quiz.fetchQuizData();
+      const quiz = new Quiz();
+      const result = await quiz.arrangedQuizData();
       //クイズデータをjsonでフロントへ返す
       res.status(200).send(JSON.stringify(result));
     } catch (error) {
-      console.log(error.message);
+      next(error);
     }
   },
 };

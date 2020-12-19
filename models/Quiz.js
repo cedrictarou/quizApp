@@ -2,10 +2,11 @@ const fetch = require('node-fetch');
 const API_URL = 'https://opentdb.com/api.php?amount=10';
 
 class Quiz {
-  constructor(quizData) {
-    this.quizzes = quizData;
+  constructor() {
+    this.quizzes = '';
   }
-  arrangedQuizzes() {
+  async arrangedQuizData() {
+    this.quizzes = await this.fetchQuizData();
     this.quizzes.forEach((quiz) => {
       const incorrectAnswers = quiz.incorrect_answers;
       const correctAnswer = quiz.correct_answer;
@@ -22,15 +23,11 @@ class Quiz {
     }
     return array;
   }
-}
-module.exports = {
-  fetchQuizData: async () => {
+  async fetchQuizData() {
     const response = await fetch(API_URL);
     const data = await response.json();
     const quizData = data.results;
-
-    //Quizクラスで処理する
-    const quiz = new Quiz(quizData);
-    return quiz.arrangedQuizzes();
-  },
-};
+    return quizData;
+  }
+}
+module.exports = Quiz;
